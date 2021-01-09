@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class PanelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    public GameObject panel;
+
     [SerializeField] private Image image;
     [SerializeField] private string name;
     [SerializeField] private int sceneIndex;
@@ -26,7 +28,14 @@ public class PanelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         name = eventData.pointerEnter.name;
         if (name == "Builder" && sceneIndex == 0) SceneManager.LoadScene(1);
         else if (name == "Main" && sceneIndex == 1) SceneManager.LoadScene(0);
-        else if (name == "Settings") { }
+        else if (name == "Settings") 
+        { 
+            if (panel != null) 
+            {
+                bool isActive = panel.activeSelf;
+                panel.SetActive(!isActive);
+            }
+        }
         else if (name == "Exit") Application.Quit();
         else if( name == "Elements")
         {
@@ -78,7 +87,6 @@ public class PanelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         else if( sceneIndex == 1)
         {
             GameObject.Find("Builder").GetComponent<Image>().color = Color.red;
-
         }
     }
     private void Showed()
@@ -88,7 +96,7 @@ public class PanelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             if (pos.y > -24)
             {
-                float move = Time.deltaTime * 100;
+                float move = Time.deltaTime * 200;
                 rectTransform.anchoredPosition = new Vector3(pos.x, pos.y - move);
             }
         }
@@ -108,7 +116,7 @@ public class PanelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             if (pos.y > -sizeOffset.y && pos.y < 15)
             {
-                float move = Time.deltaTime * 100;
+                float move = Time.deltaTime * 200;
                 rectTransform.anchoredPosition = new Vector3(pos.x, pos.y + move);
             }
         }

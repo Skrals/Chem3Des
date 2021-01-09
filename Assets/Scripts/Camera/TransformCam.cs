@@ -13,4 +13,5 @@ public class TransformCam : MonoBehaviour
         
         vector.z = Mathf.Clamp(vector.z, -Mathf.Abs(zoomMax), -Mathf.Abs(zoomMin));// значение между мин и макс
     }
+
 }

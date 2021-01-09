@@ -28,6 +28,17 @@ public class PanelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         else if (name == "Main" && sceneIndex == 1) SceneManager.LoadScene(0);
         else if (name == "Settings") { }
         else if (name == "Exit") Application.Quit();
+        else if( name == "Elements")
+        {
+            if (showed)
+            {
+                showed = false;
+            }
+            else
+            {
+                showed = true;
+            }
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -72,25 +83,41 @@ public class PanelButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     private void Showed()
     {
+        Vector2 pos = rectTransform.anchoredPosition;
         if (tag == "Panel_button")
         {
-            Vector2 pos = rectTransform.anchoredPosition;
             if (pos.y > -24)
             {
                 float move = Time.deltaTime * 100;
                 rectTransform.anchoredPosition = new Vector3(pos.x, pos.y - move);
             }
         }
+        else if (tag == "Elements_panel")
+        {
+            if (pos.x < 140)
+            {
+                float move = Time.deltaTime * 400;
+                rectTransform.anchoredPosition = new Vector3(pos.x + move, pos.y);
+            }
+        }
     }
     private void Hide()
     {
+        Vector2 pos = rectTransform.anchoredPosition;
         if (tag == "Panel_button")
         {
-            Vector2 pos = rectTransform.anchoredPosition;
             if (pos.y > -sizeOffset.y && pos.y < 15)
             {
                 float move = Time.deltaTime * 100;
                 rectTransform.anchoredPosition = new Vector3(pos.x, pos.y + move);
+            }
+        }
+        else if (tag == "Elements_panel")
+        {
+            if (pos.x > -120)
+            {
+                float move = Time.deltaTime * 400;
+                rectTransform.anchoredPosition = new Vector3(pos.x - move, pos.y);
             }
         }
     }

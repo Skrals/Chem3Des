@@ -44,7 +44,12 @@ public class CameraMain : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))&& transform.position.x > limitXL)
+        if(Input.anyKey) ChekInput();
+    }
+
+    void ChekInput ()
+    {
+        if ((Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) && transform.position.x > limitXL)
         { transform.Translate(Vector3.left * speed); }
         else if ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) && transform.position.x < limitXR)
         { transform.Translate(Vector3.right * speed); }
@@ -52,12 +57,5 @@ public class CameraMain : MonoBehaviour
         { transform.Translate(Vector3.up * speed); }
         else if ((Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) && transform.position.y > limitYD)
         { transform.Translate(Vector3.down * speed); }
-
-
-    }
-
-    void CheckBorders ()
-    {
-
     }
 }

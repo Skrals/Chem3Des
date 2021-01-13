@@ -10,7 +10,6 @@ public class TransformCam : MonoBehaviour
     }
     public void MouseZoom(Vector3 vector, float zoomMax, float zoomMin)
     {
-        
         vector.z = Mathf.Clamp(vector.z, -Mathf.Abs(zoomMax), -Mathf.Abs(zoomMin));// значение между мин и макс
     }
 

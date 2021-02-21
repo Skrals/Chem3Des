@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 074d7feac5a22c644ba9bddd0553e8a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  panel: {fileID: 0}
   name: 
   sceneIndex: 0
   showed: 0

@@ -8,17 +8,21 @@ using UnityEngine.SceneManagement;
 
 public class PanelButton : MonoBehaviour, IPointerClickHandler
 {
-    public GameObject panel;
+    [SerializeField] private GameObject panel;
     [SerializeField] private string name;
     [SerializeField] private int sceneIndex;
-    [SerializeField] private bool showed = false;
-    private Vector2 sizeOffset;
-    private RectTransform rectTransform;
+    [SerializeField] private bool panelActive = false;
+    [SerializeField] private GameObject buttonForSwapPosition;
+    [SerializeField] private float swapOffsetX = 250;
+
+    //[SerializeField] private bool showed = false;
+   // private Vector2 sizeOffset;
+  //  private RectTransform rectTransform;
 
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
-        sizeOffset = rectTransform.sizeDelta;
+        //rectTransform = GetComponent<RectTransform>();
+        //sizeOffset = rectTransform.sizeDelta;
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
     }
     public void OnPointerClick(PointerEventData eventData)
@@ -35,16 +39,33 @@ public class PanelButton : MonoBehaviour, IPointerClickHandler
             }
         }
         else if (name == "Exit") Application.Quit();
-        else if (name == "Elements")
+        else if (name == "Show_elements")
         {
-            if (showed)
+            if (panel != null)
             {
-                showed = false;
+                bool isActive = panel.activeSelf;
+                panel.SetActive(!isActive);
+                if(!panelActive)
+                {
+                    panelActive = true;
+                    buttonForSwapPosition.GetComponent<RectTransform>().transform.localPosition = new Vector2(buttonForSwapPosition.transform.localPosition.x + swapOffsetX, buttonForSwapPosition.transform.localPosition.y);
+                    buttonForSwapPosition.GetComponent<SpriteSwitch>().switchDefoltSprites();
+                }
+                else
+                {
+                    panelActive = false;
+                    buttonForSwapPosition.GetComponent<RectTransform>().transform.localPosition = new Vector2(buttonForSwapPosition.transform.localPosition.x - swapOffsetX, buttonForSwapPosition.transform.localPosition.y);
+                    buttonForSwapPosition.GetComponent<SpriteSwitch>().switchDefoltSprites();
+                }
             }
-            else
-            {
-                showed = true;
-            }
+            //if (showed)
+            //{
+            //    showed = false;
+            //}
+            //else
+            //{
+            //    showed = true;
+            //}
         }
     }
 
@@ -68,47 +89,49 @@ public class PanelButton : MonoBehaviour, IPointerClickHandler
     //    }
     //}
 
-    void Update()
-    {
-        if (showed)
-        {
-            Showed();
-        }
-        else
-        {
-            Hide();
-        }
-        //if (sceneIndex == 0)
-        //{
-        //    GameObject.Find("Main").GetComponent<Image>().color = Color.red;
-        //}
-        //else if (sceneIndex == 1)
-        //{
-        //    GameObject.Find("Builder").GetComponent<Image>().color = Color.red;
-        //}
-    }
-    private void Showed()
-    {
-        Vector2 pos = rectTransform.anchoredPosition;
-        if (tag == "Elements_panel")
-        {
-            if (pos.x < 140)
-            {
-                float move = Time.deltaTime * 400;
-                rectTransform.anchoredPosition = new Vector3(pos.x + move, pos.y);
-            }
-        }
-    }
-    private void Hide()
-    {
-        Vector2 pos = rectTransform.anchoredPosition;
-        if (tag == "Elements_panel")
-        {
-            if (pos.x > -120)
-            {
-                float move = Time.deltaTime * 400;
-                rectTransform.anchoredPosition = new Vector3(pos.x - move, pos.y);
-            }
-        }
-    }
+    //void Update()
+    //{
+    //    if (showed)
+    //    {
+    //        Showed();
+    //    }
+    //    else
+    //    {
+    //        Hide();
+    //    }
+    //    //if (sceneIndex == 0)
+    //    //{
+    //    //    GameObject.Find("Main").GetComponent<Image>().color = Color.red;
+    //    //}
+    //    //else if (sceneIndex == 1)
+    //    //{
+    //    //    GameObject.Find("Builder").GetComponent<Image>().color = Color.red;
+    //    //}
+    //}
+    //private void Showed()
+    //{
+    //    //Vector2 pos = rectTransform.anchoredPosition;
+    //    if (tag == "Elements_panel")
+    //    {
+    //        panel.SetActive(true);
+    //        //if (pos.x < 140)
+    //        //{
+    //        //    float move = Time.deltaTime * 400;
+    //        //    rectTransform.anchoredPosition = new Vector3(pos.x + move, pos.y);
+    //        //}
+    //    }
+    //}
+    //private void Hide()
+    //{
+    //    //Vector2 pos = rectTransform.anchoredPosition;
+    //    if (tag == "Elements_panel")
+    //    {
+    //        panel.SetActive(false);
+    //        //if (pos.x > -120)
+    //        //{
+    //        //    float move = Time.deltaTime * 400;
+    //        //    rectTransform.anchoredPosition = new Vector3(pos.x - move, pos.y);
+    //        //}
+    //    }
+    //}
 }

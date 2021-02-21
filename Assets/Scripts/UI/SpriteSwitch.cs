@@ -7,14 +7,23 @@ using UnityEngine.SceneManagement;
 
 public class SpriteSwitch : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    //смена спрайта при наведении и нажатии
     public Sprite defoltSprite;
     public Sprite switchOnSprite;
     public Sprite usedSprite;
+    [SerializeField] string name;//имя нажатой кнопки
 
-    [SerializeField] string name;
+    //для смены спрайта кнопки со сменой позиции
+    public Sprite switchDefolt;
+    public Sprite switchOnEneteredSprite;
+    [SerializeField] bool switchState = false;
+    [SerializeField] Sprite defoltTmp;//сохранение начального состояния
+    [SerializeField] Sprite enteredTmp;
     void Start()
     {
         name = null;
+        defoltTmp = defoltSprite;
+        enteredTmp = switchOnSprite;
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -37,6 +46,23 @@ public class SpriteSwitch : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     void switchOn( Sprite sp)
     {
           this.GetComponent<Image>().sprite = sp;
+    }
+
+    public void switchDefoltSprites ()
+    {
+        if (!switchState)
+        {
+            switchState = true;
+            defoltSprite = switchDefolt;
+            switchOnSprite = switchOnEneteredSprite; 
+        }
+        else
+        {
+            switchState = false;
+            defoltSprite = defoltTmp;
+            switchOnSprite = enteredTmp;
+        }
+
     }
 
     public void OnPointerClick(PointerEventData eventData)

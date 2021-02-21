@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PanelButton : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] private GameObject panel;
+    [SerializeField] private GameObject initializingComponent;
     [SerializeField] private string name;
     [SerializeField] private int sceneIndex;
     [SerializeField] private bool panelActive = false;
@@ -32,19 +32,19 @@ public class PanelButton : MonoBehaviour, IPointerClickHandler
         else if (name == "Main" && sceneIndex == 1) SceneManager.LoadScene(0);
         else if (name == "Settings")
         {
-            if (panel != null)
+            if (initializingComponent != null)
             {
-                bool isActive = panel.activeSelf;
-                panel.SetActive(!isActive);
+                bool isActive = initializingComponent.activeSelf;
+                initializingComponent.SetActive(!isActive);
             }
         }
         else if (name == "Exit") Application.Quit();
         else if (name == "Show_elements")
         {
-            if (panel != null)
+            if (initializingComponent != null)
             {
-                bool isActive = panel.activeSelf;
-                panel.SetActive(!isActive);
+                bool isActive = initializingComponent.activeSelf;
+                initializingComponent.SetActive(!isActive);
                 if(!panelActive)
                 {
                     panelActive = true;

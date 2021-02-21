@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Panel_button
   - Elements_panel
+  - Element_button
   layers:
   - Default
   - TransparentFX

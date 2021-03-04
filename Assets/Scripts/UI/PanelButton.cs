@@ -28,6 +28,7 @@ public class PanelButton : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         name = eventData.pointerEnter.name;
+        Debug.Log(name);
         if (name == "Builder" && sceneIndex == 0) SceneManager.LoadScene(1);
         else if (name == "Main" && sceneIndex == 1) SceneManager.LoadScene(0);
         else if (name == "Settings")

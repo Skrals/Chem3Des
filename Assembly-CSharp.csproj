@@ -67,7 +67,6 @@
     <Compile Include="Assets\Scripts\Camera\CameraBuilder.cs" />
     <Compile Include="Assets\Scripts\Camera\CameraMain.cs" />
     <Compile Include="Assets\Scripts\Camera\TransformCam.cs" />
-    <Compile Include="Assets\Scripts\Logic\ClickReceiver.cs" />
     <Compile Include="Assets\Scripts\Logic\InitializerSwitch.cs" />
     <Compile Include="Assets\Scripts\Logic\Manipulator.cs" />
     <Compile Include="Assets\Scripts\SaveState.cs" />

@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class InitializerSwitch : MonoBehaviour
 {
-
+      //Перенести сюда метод с параметром для приема объекта инициализации
     public string currentName;
-    public ElementInitializer [] init;
+    public ElementInitializer [] init;//удалить
 
     private void Update()
     {
         currentName = ElementInitializer.name;
-        switch (currentName)
+        switch (currentName)// переделать костыль
         {
             case "H_button":
                 init[0].Initializer();

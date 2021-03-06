@@ -17,7 +17,7 @@ public class InitializerSwitch : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && Input.GetKey(KeyCode.LeftShift) && element != null)
         {
-            offset = new Vector3(10f, 10f, 10f);
+            offset = -CameraBuilder.offset;
             mousePositionVector = Camera.main.ScreenToWorldPoint(Input.mousePosition + offset);
             Instantiate(element, (mousePositionVector), Quaternion.identity);
         }

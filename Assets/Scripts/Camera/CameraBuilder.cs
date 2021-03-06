@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
 
 public class CameraBuilder : MonoBehaviour
 {
@@ -18,7 +15,6 @@ public class CameraBuilder : MonoBehaviour
     public float MouseSense = 3; // чувствительность мышки
     private float X, Y;
 
-    // Start is called before the first frame update
     void Start()
     {
 

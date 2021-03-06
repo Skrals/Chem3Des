@@ -71,6 +71,8 @@
     <Compile Include="Assets\Scripts\Logic\Manipulator.cs" />
     <Compile Include="Assets\Scripts\SaveState.cs" />
     <Compile Include="Assets\Scripts\UI\ElementInitializer.cs" />
+    <Compile Include="Assets\Scripts\UI\GUIControl.cs" />
+    <Compile Include="Assets\Scripts\UI\GUIControlInfo.cs" />
     <Compile Include="Assets\Scripts\UI\PanelButton.cs" />
     <Compile Include="Assets\Scripts\UI\PositionExtension.cs" />
     <Compile Include="Assets\Scripts\UI\SettingsControl.cs" />

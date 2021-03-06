@@ -7,7 +7,7 @@ using System;
 public class SettingsControl : MonoBehaviour
 {
     public GameObject cameraSettings;// настраиваемый объект
-    public GameObject MaxVal;// объекты вывода 
+    public GameObject MaxZoomVal;// объекты вывода 
     public GameObject SpeedVal;
     public GameObject SenseVal;
     public Slider sliderMax;// слайдеры ввода
@@ -52,7 +52,7 @@ public class SettingsControl : MonoBehaviour
         speedSet = cameraSettings.GetComponent<CameraBuilder>().zoom;
         senseSet = cameraSettings.GetComponent<CameraBuilder>().MouseSense;
 
-        MaxVal.GetComponent<Text>().text = Convert.ToString(zoomMaxSet);
+        MaxZoomVal.GetComponent<Text>().text = Convert.ToString(zoomMaxSet);
         SpeedVal.GetComponent<Text>().text = Convert.ToString(speedSet);
         SenseVal.GetComponent<Text>().text = Convert.ToString(senseSet);
     }

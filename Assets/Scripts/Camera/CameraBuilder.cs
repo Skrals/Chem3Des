@@ -6,12 +6,11 @@ using UnityEngine.EventSystems;
 public class CameraBuilder : MonoBehaviour
 {
     public TransformCam cam = null;
-    public Transform target;
+    public Transform target = null;
     public Vector3 offset;
 
     Ray ray;
     RaycastHit hit;
-
     public float limit = 80; // ограничение вращения по Y
     public float zoom = 0.25f; // чувствительность при увеличении, колесиком мышки
     public float zoomMax = 10; // макс. увеличение
@@ -22,7 +21,7 @@ public class CameraBuilder : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
         cam = this.gameObject.AddComponent<TransformCam>();
         limit = Mathf.Abs(limit);
         if (limit > 90) limit = 90;
@@ -35,8 +34,8 @@ public class CameraBuilder : MonoBehaviour
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(transform.position, transform.forward, Color.red);
         SwitchCameraViewTarget();
-        
-        if (Input.GetKey(KeyCode.Mouse1))
+
+        if (Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0))
         {
             MouseInputR();
             cam.Transform(target, offset);
@@ -74,11 +73,13 @@ public class CameraBuilder : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (Physics.Raycast(ray, out hit))
-            { 
+            {
                 Debug.Log(hit.collider.gameObject.name);
                 target = hit.collider.gameObject.GetComponent<Transform>();
-                cam.Transform(target, offset);
+
             }
+            cam.Transform(target, offset);
         }
     }
+
 }

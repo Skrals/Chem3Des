@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 477.71277, g: 477.71277, b: 477.71277, a: 1}
+  m_AmbientSkyColor: {r: 0.98833734, g: 0.98833734, b: 0.9728137, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
@@ -576,6 +576,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a1a799258afdc499823500ae5b01ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manipulatorTarget: {fileID: 0}
+  cursor: {x: 0, y: 0, z: 0}
+  startVector: {x: 0, y: 0, z: 0}
+  offsetPosition: 0.015
 --- !u!1 &483990892 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1022950113775421673, guid: 5b9f54716a519dd4699f76bdab95289f,

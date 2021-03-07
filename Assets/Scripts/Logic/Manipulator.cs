@@ -3,19 +3,21 @@
 public class Manipulator : MonoBehaviour
 {
     [SerializeField] private Transform manipulatorTarget;
+    [SerializeField] private Light targetLight;
     [SerializeField] private Vector3 cursor;
     [SerializeField] private Vector3 startVector;
 
     [SerializeField] private float offsetPosition = 0.01f;
-
+    [SerializeField] private bool available;
+    [SerializeField] Color selectColor;
+    [SerializeField] Color deletColor;
     Ray ray;
     RaycastHit hit;
 
-    void Update()
+    void LateUpdate()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         cursor = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             startVector = cursor;
@@ -24,15 +26,24 @@ public class Manipulator : MonoBehaviour
         {
             GetTarget();
         }
-
+        if(Input.GetKey(KeyCode.Tab))
+        {
+            HiglightTarget(selectColor);
+        }
+        else
+        {
+            Deselected();
+        }
         if (Input.GetKey(KeyCode.Tab) && Input.GetKey(KeyCode.Mouse0))
         {
             CalculateCurrentPosition();
+            Deselected();
         }
         else
         {
             DropTarget();
         }
+       
     }
 
     void GetTarget()
@@ -47,6 +58,49 @@ public class Manipulator : MonoBehaviour
     void DropTarget()
     {
         manipulatorTarget = null;
+    }
+
+    void Selected()
+    {
+        targetLight.enabled = true;
+        available = false;
+    }
+
+    void Deselected()
+    {
+        targetLight.enabled = false;
+        available = true;
+        targetLight = null;
+    }
+
+    public void HiglightTarget(Color color)
+    {
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            Light light = hit.collider.gameObject.GetComponent<Light>();
+            if (light)
+            {
+                if (targetLight && targetLight != light)
+                {
+                    Deselected();
+                }
+                targetLight = light;
+                targetLight.color = color;
+                if (available)
+                {
+                    Selected();
+                }
+            }
+            else
+            {
+                Deselected();
+            }
+        }
+        else
+        {
+            Deselected();
+        }
     }
 
     void CalculateCurrentPosition()
@@ -66,7 +120,7 @@ public class Manipulator : MonoBehaviour
         }
         if (startVector.y > cursor.y)
         {
-            manipulatorTarget.Y(objectY + (cursor.y - startVector.y)- offsetPosition);
+            manipulatorTarget.Y(objectY + (cursor.y - startVector.y) - offsetPosition);
         }
         if (startVector.y < cursor.y)
         {

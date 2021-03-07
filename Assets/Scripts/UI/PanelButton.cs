@@ -56,6 +56,12 @@ public class PanelButton : MonoBehaviour, IPointerClickHandler
                     buttonForSwapPosition.GetComponent<SpriteSwitch>().switchDefoltSprites();
                 }
             }
+
+
+
+
+
+
             //if (showed)
             //{
             //    showed = false;

@@ -14,7 +14,7 @@ public class Manipulator : MonoBehaviour
     Ray ray;
     RaycastHit hit;
 
-    void LateUpdate()
+    void Update()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         cursor = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
@@ -22,19 +22,13 @@ public class Manipulator : MonoBehaviour
         {
             startVector = cursor;
         }
+
         if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.Mouse0))
         {
             GetTarget();
         }
-        if(Input.GetKey(KeyCode.Tab))
-        {
-            HiglightTarget(selectColor);
-        }
-        else
-        {
-            Deselected();
-        }
-        if (Input.GetKey(KeyCode.Tab) && Input.GetKey(KeyCode.Mouse0))
+
+        if (Input.GetKey(KeyCode.Tab) && Input.GetKey(KeyCode.Mouse0) && !Input.GetKey(KeyCode.D))
         {
             CalculateCurrentPosition();
             Deselected();
@@ -43,7 +37,26 @@ public class Manipulator : MonoBehaviour
         {
             DropTarget();
         }
-       
+
+        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Tab))
+        {
+            DeleteTarget();
+        }
+
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            HiglightTarget(selectColor);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            available = true;
+            HiglightTarget(deletColor);
+        }
+        else
+        {
+            Deselected();
+        }
+
     }
 
     void GetTarget()
@@ -52,6 +65,7 @@ public class Manipulator : MonoBehaviour
         {
             Debug.Log(hit.collider.gameObject.name);
             manipulatorTarget = hit.collider.gameObject.GetComponent<Transform>();
+
         }
     }
 
@@ -60,6 +74,16 @@ public class Manipulator : MonoBehaviour
         manipulatorTarget = null;
     }
 
+    void DeleteTarget()
+    {
+        if (Physics.Raycast(ray, out hit))
+        {
+            Debug.Log(hit.collider.gameObject.name);
+            Destroy(hit.collider.gameObject);
+            available = true;
+            targetLight = null;
+        }
+    }
     void Selected()
     {
         targetLight.enabled = true;
@@ -68,9 +92,12 @@ public class Manipulator : MonoBehaviour
 
     void Deselected()
     {
-        targetLight.enabled = false;
-        available = true;
-        targetLight = null;
+        if (targetLight)
+        {
+            targetLight.enabled = false;
+            available = true;
+            targetLight = null;
+        }
     }
 
     public void HiglightTarget(Color color)
@@ -105,37 +132,39 @@ public class Manipulator : MonoBehaviour
 
     void CalculateCurrentPosition()
     {
-        var objectX = manipulatorTarget.position.x;
-        var objectY = manipulatorTarget.position.y;
-        var objectZ = manipulatorTarget.position.z;
-        var bounds = manipulatorTarget.GetComponent<MeshFilter>().sharedMesh.bounds.size;
+        if (manipulatorTarget)
+        {
+            var objectX = manipulatorTarget.position.x;
+            var objectY = manipulatorTarget.position.y;
+            var objectZ = manipulatorTarget.position.z;
+            var bounds = manipulatorTarget.GetComponent<MeshFilter>().sharedMesh.bounds.size;
 
-        if (startVector.x > cursor.x)
-        {
-            manipulatorTarget.X(objectX + (cursor.x - startVector.x) - offsetPosition);
+            if (startVector.x > cursor.x)
+            {
+                manipulatorTarget.X(objectX + (cursor.x - startVector.x) - offsetPosition);
+            }
+            if (startVector.x < cursor.x)
+            {
+                manipulatorTarget.X(objectX - (startVector.x - cursor.x) + offsetPosition);
+            }
+            if (startVector.y > cursor.y)
+            {
+                manipulatorTarget.Y(objectY + (cursor.y - startVector.y) - offsetPosition);
+            }
+            if (startVector.y < cursor.y)
+            {
+                manipulatorTarget.Y(objectY - (startVector.y - cursor.y) + offsetPosition);
+            }
+            if (startVector.z > cursor.z)
+            {
+                manipulatorTarget.Z(objectZ + (cursor.z - startVector.z) - offsetPosition);
+            }
+            if (startVector.z < cursor.z)
+            {
+                manipulatorTarget.Z(objectZ - (startVector.z - cursor.z) + offsetPosition);
+            }
+            startVector = cursor;
         }
-        if (startVector.x < cursor.x)
-        {
-            manipulatorTarget.X(objectX - (startVector.x - cursor.x) + offsetPosition);
-        }
-        if (startVector.y > cursor.y)
-        {
-            manipulatorTarget.Y(objectY + (cursor.y - startVector.y) - offsetPosition);
-        }
-        if (startVector.y < cursor.y)
-        {
-            manipulatorTarget.Y(objectY - (startVector.y - cursor.y) + offsetPosition);
-        }
-        if (startVector.z > cursor.z)
-        {
-            manipulatorTarget.Z(objectZ + (cursor.z - startVector.z) - offsetPosition);
-        }
-        if (startVector.z < cursor.z)
-        {
-            manipulatorTarget.Z(objectZ - (startVector.z - cursor.z) + offsetPosition);
-        }
-        startVector = cursor;
     }
-
 
 }

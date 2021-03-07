@@ -36,7 +36,8 @@ public class GUIControlInfo : MonoBehaviour
         GUI.Label(new Rect(guiX + 10,guiY+offsetIteratorY[0], guiBoxSize-20, layoutSizeH), $"Удерживать Left Ctrl + LMB  перемещение камеры на указанный элемент");
         GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[1], guiBoxSize - 20, layoutSizeH), "Удерживать Left Shift + LMB инициализация выбранного элемента");
         GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[2], guiBoxSize - 20, layoutSizeH), "Удерживать Tab + LMB перемещение выбранного компонента");
-        GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[3], guiBoxSize - 20, layoutSizeH), "Удерживать RMB вращение камеры вокруг элемента");
-        GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[4], guiBoxSize - 20, layoutSizeH), "Scroll Up / Scroll Down приближение / отдаление");
+        GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[3], guiBoxSize - 20, layoutSizeH), "Удерживать D + LMB удаление элемента");
+        GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[4], guiBoxSize - 20, layoutSizeH), "Удерживать RMB вращение камеры вокруг элемента");
+        GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[5], guiBoxSize - 20, layoutSizeH), "Scroll Up / Scroll Down приближение / отдаление");
     }
 }

@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1022950113775421686
 RectTransform:
   m_ObjectHideFlags: 0
@@ -101,6 +101,48 @@ MonoBehaviour:
   panelActive: 0
   buttonForSwapPosition: {fileID: 0}
   swapOffsetX: 250
+--- !u!114 &2958194036008976406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409777222276910968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49d7c5793c52a14486297cb60985f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: {fileID: 3010387424709331718, guid: b59246795d027dd47aa36922272710d8, type: 3}
+  init: {fileID: 0}
+--- !u!114 &1923622412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2721907957625631963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49d7c5793c52a14486297cb60985f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: {fileID: 3713633748819288860, guid: 8f943aebd69a57a48a4fa8275581f8f8, type: 3}
+  init: {fileID: 0}
+--- !u!114 &299292583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4624467741211093161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49d7c5793c52a14486297cb60985f01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  element: {fileID: 7765162507091222087, guid: c9620bd22230ea940b9093810bd235e3, type: 3}
+  init: {fileID: 0}
 --- !u!1001 &441248856324117100
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -166,12 +208,12 @@ PrefabInstance:
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015259
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.4
+      value: 223.99998
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
@@ -218,8 +260,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: H_button
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
+--- !u!1 &2721907957625631963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 441248856324117100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2721907957625631960 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
@@ -233,6 +282,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022950113775421686}
     m_Modifications:
+    - target: {fileID: 2583247192419116723, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e3f6f09846be6d4f936eb07c271a045,
+        type: 3}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -291,12 +346,12 @@ PrefabInstance:
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015259
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.4
+      value: -90.90002
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
@@ -338,11 +393,29 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: defoltSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7e3f6f09846be6d4f936eb07c271a045,
+        type: 3}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: switchOnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: dda5acca705e24f499dea520f543dfb9,
+        type: 3}
     - target: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_Name
       value: F_button
       objectReference: {fileID: 0}
+    - target: {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: element
+      value: 
+      objectReference: {fileID: 1306346321580533414, guid: 36ab81d46ad7fee4b9169957f49e4387,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
 --- !u!224 &3225080814734463642 stripped
@@ -358,6 +431,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022950113775421686}
     m_Modifications:
+    - target: {fileID: 2583247192419116723, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 60224334fa7f5b64080fe359357bb4cf,
+        type: 3}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -416,12 +495,12 @@ PrefabInstance:
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015259
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.4
+      value: -25.000015
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
@@ -463,11 +542,29 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: defoltSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 60224334fa7f5b64080fe359357bb4cf,
+        type: 3}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: switchOnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d9923312d9a15ef498cab92438ecadda,
+        type: 3}
     - target: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_Name
       value: S_button
       objectReference: {fileID: 0}
+    - target: {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: element
+      value: 
+      objectReference: {fileID: 8653307549551115811, guid: 395dab17a1f3e4442b5cef247b608ea4,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
 --- !u!224 &951531359659609071 stripped
@@ -483,6 +580,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022950113775421686}
     m_Modifications:
+    - target: {fileID: 2583247192419116723, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 371c26219ca60794da25bbb9f8900a5b,
+        type: 3}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -541,12 +644,12 @@ PrefabInstance:
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015259
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.4
+      value: -155.00002
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
@@ -588,11 +691,29 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: defoltSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 371c26219ca60794da25bbb9f8900a5b,
+        type: 3}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: switchOnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cd9b6bbcc8ae3454992d6d95a8111e75,
+        type: 3}
     - target: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_Name
       value: CL_button
       objectReference: {fileID: 0}
+    - target: {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: element
+      value: 
+      objectReference: {fileID: 6821395337499497045, guid: ad516283c4a48934e8859e5bf9e8f2d4,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
 --- !u!224 &908804055341027433 stripped
@@ -608,6 +729,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022950113775421686}
     m_Modifications:
+    - target: {fileID: 2583247192419116723, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c156003ce84571478b5885e7ef81470,
+        type: 3}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -666,12 +793,12 @@ PrefabInstance:
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015259
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.4
+      value: 99.999985
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
@@ -713,13 +840,38 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: defoltSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0c156003ce84571478b5885e7ef81470,
+        type: 3}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: switchOnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a4b670b8bea8461438a5efcf725b0633,
+        type: 3}
     - target: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_Name
       value: O_button
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: element
+      value: 
+      objectReference: {fileID: 3010387424709331718, guid: b59246795d027dd47aa36922272710d8,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
+--- !u!1 &1409777222276910968 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 3479313598376454607}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1409777222276910971 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
@@ -733,6 +885,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022950113775421686}
     m_Modifications:
+    - target: {fileID: 2583247192419116723, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 74ab6d72c2e6eeb4ca0465cbcb56a59d,
+        type: 3}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -791,12 +949,12 @@ PrefabInstance:
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015259
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.4
+      value: 161.99998
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
@@ -838,11 +996,29 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: defoltSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 74ab6d72c2e6eeb4ca0465cbcb56a59d,
+        type: 3}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: switchOnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 980ff3f72a129f9459ee7c133470f6f2,
+        type: 3}
     - target: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_Name
       value: C_button
       objectReference: {fileID: 0}
+    - target: {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: element
+      value: 
+      objectReference: {fileID: 8225777706426562089, guid: 7b8ed686222eb904581efa0bc3e084a5,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
 --- !u!224 &9019586397850071182 stripped
@@ -858,6 +1034,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022950113775421686}
     m_Modifications:
+    - target: {fileID: 2583247192419116723, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 75aee13cd92bdf44ea0fefc0121bfd7f,
+        type: 3}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -916,12 +1098,12 @@ PrefabInstance:
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015259
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.4
+      value: -217.50002
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
@@ -963,13 +1145,38 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: defoltSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 75aee13cd92bdf44ea0fefc0121bfd7f,
+        type: 3}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: switchOnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2bdaaf75bc6eee547b49a322dd33e9a2,
+        type: 3}
     - target: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_Name
       value: BR_button
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: element
+      value: 
+      objectReference: {fileID: 7765162507091222087, guid: c9620bd22230ea940b9093810bd235e3,
+        type: 3}
+    m_RemovedComponents:
+    - {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
+--- !u!1 &4624467741211093161 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7202629412973006366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4624467741211093162 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
@@ -983,6 +1190,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022950113775421686}
     m_Modifications:
+    - target: {fileID: 2583247192419116723, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9478eb8a54b0b21479a9a0cd4fc6954b,
+        type: 3}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1041,12 +1254,12 @@ PrefabInstance:
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.000015259
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 325.4
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 2583247192419116724, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
@@ -1088,11 +1301,29 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: defoltSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9478eb8a54b0b21479a9a0cd4fc6954b,
+        type: 3}
+    - target: {fileID: 2583247192419116725, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: switchOnSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 71d75b773eb7b0f4ab61a44ecf5bcccc,
+        type: 3}
     - target: {fileID: 2583247192419116727, guid: 4caec1df3408df644929d2c3820385a6,
         type: 3}
       propertyPath: m_Name
       value: N_button
       objectReference: {fileID: 0}
+    - target: {fileID: 7292724130207114953, guid: 4caec1df3408df644929d2c3820385a6,
+        type: 3}
+      propertyPath: element
+      value: 
+      objectReference: {fileID: 701342753965436598, guid: 6ae186731278c7140b9db2f7706e114f,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4caec1df3408df644929d2c3820385a6, type: 3}
 --- !u!224 &4929701766519108479 stripped

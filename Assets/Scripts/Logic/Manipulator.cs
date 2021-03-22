@@ -2,11 +2,17 @@
 
 public class Manipulator : MonoBehaviour
 {
+    public bool connectionModeIsOn = false;
+    public GameObject connectionObj;
+
     [SerializeField] private Transform manipulatorTarget;
     [SerializeField] private Light targetLight;
     [SerializeField] private Vector3 cursor;
     [SerializeField] private Vector3 startVector;
-
+    [SerializeField] private Vector3 vector1;
+    [SerializeField] private Vector3 vector2;
+    [SerializeField] private Transform startConnection = null;
+    [SerializeField] private Transform finishConnection = null;
     [SerializeField] private float offsetPosition = 0.01f;
     [SerializeField] private bool available;
     [SerializeField] Color selectColor;
@@ -18,54 +24,123 @@ public class Manipulator : MonoBehaviour
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         cursor = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-        if (Input.GetKeyDown(KeyCode.Mouse0))
+        if (!connectionModeIsOn)
         {
-            startVector = cursor;
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                startVector = cursor;
+            }
+
+            if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                GetTarget();
+            }
+
+            if (Input.GetKey(KeyCode.Tab) && Input.GetKey(KeyCode.Mouse0) && !Input.GetKey(KeyCode.D))
+            {
+                CalculateCurrentPosition();
+                Deselected();
+            }
+            else
+            {
+                DropTarget();
+            }
+
+            if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Tab))
+            {
+                DeleteTarget();
+            }
+
+            if (Input.GetKey(KeyCode.Tab))
+            {
+                HiglightTarget(selectColor);
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                available = true;
+                HiglightTarget(deletColor);
+            }
+            else
+            {
+                Deselected();
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (connectionModeIsOn)
+            {
+                connectionModeIsOn = false;
+            }
+            else
+            {
+                connectionModeIsOn = true;
+            }
+        }
+        if (connectionModeIsOn)
+        {
+            if (Input.GetKeyDown(KeyCode.Mouse0) && startConnection == null)
+            {
+                GetTarget();
+            }
+            else if (Input.GetKeyDown(KeyCode.Mouse0) && finishConnection == null)
+            {
+                GetTarget();
+            }
         }
 
-        if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.Mouse0))
+        if (startConnection != null && finishConnection != null)
         {
-            GetTarget();
+            MakeConnection();
+            ClearConnection();
         }
-
-        if (Input.GetKey(KeyCode.Tab) && Input.GetKey(KeyCode.Mouse0) && !Input.GetKey(KeyCode.D))
-        {
-            CalculateCurrentPosition();
-            Deselected();
-        }
-        else
-        {
-            DropTarget();
-        }
-
-        if (Input.GetKey(KeyCode.D) && Input.GetKeyDown(KeyCode.Mouse0) && !Input.GetKey(KeyCode.Tab))
-        {
-            DeleteTarget();
-        }
-
-        if (Input.GetKey(KeyCode.Tab))
-        {
-            HiglightTarget(selectColor);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            available = true;
-            HiglightTarget(deletColor);
-        }
-        else
-        {
-            Deselected();
-        }
-
     }
 
+    void MakeConnection()
+    {
+        vector1 = startConnection.position;
+        vector2 = finishConnection.position;
+        connectionObj.transform.localScale = new Vector3(0.3f, 0.3f, Vector3.Distance(vector1, vector2)); //меняем размер объекта по z 
+        if (vector1.x < vector2.x || vector1.y < vector2.y || vector1.z < vector2.z) // возникает ошибка поворота при отрицательных значениях когда 1ый вектор имеет большее координатное число чем 2ой
+        {
+            Vector3 buffer = vector1;
+            vector1 = vector2;
+            vector2 = buffer;
+        }
+        Vector3 middlePoint = new Vector3((vector1.x + vector2.x) / 2, (vector1.y + vector2.y) / 2, (vector1.z + vector2.z) / 2);// узнаем середину между 2мя объектами
+        Quaternion ObjQuaternion = connectionObj.transform.rotation;
+
+        ObjQuaternion = Quaternion.RotateTowards(Quaternion.LookRotation(vector1), Quaternion.LookRotation(vector1 - vector2), 90f);// узнаем угол поворота между стартовой и конечной точкой - надо сделать его по модулю
+        //
+        Instantiate(connectionObj, middlePoint, ObjQuaternion);
+    }
+    void ClearConnection()
+    {
+        startConnection = null;
+        finishConnection = null;
+    }
     void GetTarget()
     {
         if (Physics.Raycast(ray, out hit))
         {
             Debug.Log(hit.collider.gameObject.name);
-            manipulatorTarget = hit.collider.gameObject.GetComponent<Transform>();
-
+            if (!connectionModeIsOn)
+            {
+                manipulatorTarget = hit.collider.gameObject.GetComponent<Transform>();
+            }
+            else
+            {
+                if (hit.collider.gameObject.tag != "Connection")
+                {
+                    if (startConnection == null)
+                    {
+                        startConnection = hit.collider.gameObject.GetComponent<Transform>();
+                    }
+                    else if (hit.collider.gameObject.GetComponent<Transform>() != startConnection)
+                    {
+                        finishConnection = hit.collider.gameObject.GetComponent<Transform>();
+                    }
+                }
+            }
         }
     }
 

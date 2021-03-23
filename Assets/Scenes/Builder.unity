@@ -425,12 +425,12 @@ PrefabInstance:
     - target: {fileID: 5258483753697753859, guid: 8f943aebd69a57a48a4fa8275581f8f8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.577853
+      value: 504
       objectReference: {fileID: 0}
     - target: {fileID: 5258483753697753859, guid: 8f943aebd69a57a48a4fa8275581f8f8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.0491686
+      value: 505
       objectReference: {fileID: 0}
     - target: {fileID: 5258483753697753859, guid: 8f943aebd69a57a48a4fa8275581f8f8,
         type: 3}
@@ -648,14 +648,14 @@ MonoBehaviour:
   connectionModeIsOn: 0
   connectionObj: {fileID: 2177259836901508081, guid: 67ecbbcc1e8333240a3e9711086d0280,
     type: 3}
+  startConnection: {fileID: 0}
+  finishConnection: {fileID: 0}
   manipulatorTarget: {fileID: 0}
   targetLight: {fileID: 0}
   cursor: {x: 0, y: 0, z: 0}
   startVector: {x: 0, y: 0, z: 0}
   vector1: {x: 0, y: 0, z: 0}
   vector2: {x: 0, y: 0, z: 0}
-  startConnection: {fileID: 0}
-  finishConnection: {fileID: 0}
   offsetPosition: 0.015
   available: 0
   selectColor: {r: 0.07450981, g: 0.74509805, b: 0.2, a: 0}
@@ -1152,7 +1152,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 871524597}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 500, y: 500, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2206,12 +2206,12 @@ PrefabInstance:
     - target: {fileID: 5258483753697753859, guid: 8f943aebd69a57a48a4fa8275581f8f8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.2232013
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5258483753697753859, guid: 8f943aebd69a57a48a4fa8275581f8f8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.159629
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 5258483753697753859, guid: 8f943aebd69a57a48a4fa8275581f8f8,
         type: 3}

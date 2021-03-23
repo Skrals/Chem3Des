@@ -4,6 +4,8 @@ public class Manipulator : MonoBehaviour
 {
     public bool connectionModeIsOn = false;
     public GameObject connectionObj;
+    [SerializeField] private Transform startConnection = null;
+    [SerializeField] private Transform finishConnection = null;
 
     [SerializeField] private Transform manipulatorTarget;
     [SerializeField] private Light targetLight;
@@ -11,8 +13,6 @@ public class Manipulator : MonoBehaviour
     [SerializeField] private Vector3 startVector;
     [SerializeField] private Vector3 vector1;
     [SerializeField] private Vector3 vector2;
-    [SerializeField] private Transform startConnection = null;
-    [SerializeField] private Transform finishConnection = null;
     [SerializeField] private float offsetPosition = 0.01f;
     [SerializeField] private bool available;
     [SerializeField] Color selectColor;
@@ -91,7 +91,6 @@ public class Manipulator : MonoBehaviour
         if (startConnection != null && finishConnection != null)
         {
             MakeConnection();
-            ClearConnection();
         }
     }
 
@@ -103,7 +102,9 @@ public class Manipulator : MonoBehaviour
         Vector3 middlePoint = new Vector3((vector1.x + vector2.x) / 2, (vector1.y + vector2.y) / 2, (vector1.z + vector2.z) / 2);// узнаем середину между 2мя объектами
         Quaternion ObjQuaternion = connectionObj.transform.rotation;
         ObjQuaternion = Quaternion.RotateTowards(Quaternion.LookRotation(vector1), Quaternion.LookRotation((vector1 - vector2) ),360f);// узнаем угол поворота между стартовой и конечной точкой - надо сделать его по модулю
-        Instantiate(connectionObj, middlePoint, ObjQuaternion);
+        GameObject bufferGm = Instantiate(connectionObj, middlePoint, ObjQuaternion);// инициализируем объект в переменной
+        bufferGm.GetComponent<ConnectionUpdate>().ConnectionUp(startConnection, finishConnection); //по ссылке на переменную объекта добавляем значения конкретному объекту
+        ClearConnection();
     }
     void ClearConnection()
     {

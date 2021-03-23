@@ -39,5 +39,6 @@ public class GUIControlInfo : MonoBehaviour
         GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[3], guiBoxSize - 20, layoutSizeH), "Удерживать D + LMB удаление элемента");
         GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[4], guiBoxSize - 20, layoutSizeH), "Удерживать RMB вращение камеры вокруг элемента");
         GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[5], guiBoxSize - 20, layoutSizeH), "Scroll Up / Scroll Down приближение / отдаление");
+        GUI.Label(new Rect(guiX + 10, guiY + offsetIteratorY[6], guiBoxSize - 20, layoutSizeH), "С - переключение режима построения связей");
     }
 }

@@ -100,17 +100,9 @@ public class Manipulator : MonoBehaviour
         vector1 = startConnection.position;
         vector2 = finishConnection.position;
         connectionObj.transform.localScale = new Vector3(0.3f, 0.3f, Vector3.Distance(vector1, vector2)); //меняем размер объекта по z 
-        if (vector1.x < vector2.x || vector1.y < vector2.y || vector1.z < vector2.z) // возникает ошибка поворота при отрицательных значениях когда 1ый вектор имеет большее координатное число чем 2ой
-        {
-            Vector3 buffer = vector1;
-            vector1 = vector2;
-            vector2 = buffer;
-        }
         Vector3 middlePoint = new Vector3((vector1.x + vector2.x) / 2, (vector1.y + vector2.y) / 2, (vector1.z + vector2.z) / 2);// узнаем середину между 2мя объектами
         Quaternion ObjQuaternion = connectionObj.transform.rotation;
-
-        ObjQuaternion = Quaternion.RotateTowards(Quaternion.LookRotation(vector1), Quaternion.LookRotation(vector1 - vector2), 90f);// узнаем угол поворота между стартовой и конечной точкой - надо сделать его по модулю
-        //
+        ObjQuaternion = Quaternion.RotateTowards(Quaternion.LookRotation(vector1), Quaternion.LookRotation((vector1 - vector2) ),360f);// узнаем угол поворота между стартовой и конечной точкой - надо сделать его по модулю
         Instantiate(connectionObj, middlePoint, ObjQuaternion);
     }
     void ClearConnection()

@@ -6,15 +6,16 @@ public class ForMultiConnectionDelete : MonoBehaviour
 {
     [SerializeField] private Transform [] objects;
 
-    private void Update()
+    private void Awake()
     {
         foreach (Transform t in objects)
         {
-            if(t == null)
+            if (t == null)
             {
                 DeleteConnection();
             }
         }
+
     }
     private void DeleteConnection()
     {

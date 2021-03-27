@@ -1,22 +1,34 @@
-﻿using UnityEngine;
+﻿using UnityEngine.UI;
+using UnityEngine;
 
 public class Manipulator : MonoBehaviour
 {
     public bool connectionModeIsOn = false;
-    public GameObject connectionObj;
+    public GameObject connectionMenu;
+
     [SerializeField] private Transform startConnection = null;
     [SerializeField] private Transform finishConnection = null;
-
     [SerializeField] private Transform manipulatorTarget;
+
+    [SerializeField] private GameObject currentViewConnection;
+    [SerializeField] private GameObject[] connectionArray;
+
     [SerializeField] private Light targetLight;
+
     [SerializeField] private Vector3 cursor;
     [SerializeField] private Vector3 startVector;
     [SerializeField] private Vector3 vector1;
     [SerializeField] private Vector3 vector2;
+
     [SerializeField] private float offsetPosition = 0.01f;
     [SerializeField] private bool available;
+    [SerializeField] private bool view;
+    [SerializeField] private int connectionSwitch = 0;
+    [SerializeField] private int listCounter = 0;
+
     [SerializeField] Color selectColor;
     [SerializeField] Color deletColor;
+
     Ray ray;
     RaycastHit hit;
 
@@ -78,6 +90,7 @@ public class Manipulator : MonoBehaviour
         }
         if (connectionModeIsOn)
         {
+
             if (Input.GetKeyDown(KeyCode.Mouse0) && startConnection == null)
             {
                 GetTarget();
@@ -92,17 +105,61 @@ public class Manipulator : MonoBehaviour
         {
             MakeConnection();
         }
+
+        if (Input.GetKey(KeyCode.T) && Input.GetKeyDown(KeyCode.Mouse0))
+        {
+
+            if (!connectionMenu.active && !connectionModeIsOn)
+            {
+
+                if (currentViewConnection != null)
+                {
+                    connectionMenu.SetActive(true);
+                    connectionMenu.transform.position = Input.mousePosition;
+                }
+                else
+                {
+                    GetConnection();
+                }
+            }
+
+        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            connectionMenu.SetActive(false);
+            ClearConnection();
+        }
+    }
+
+    public void InputMenu(int value)
+    {
+
+        switch (value)
+        {
+            case 0:
+                connectionSwitch = 0;
+                break;
+            case 1:
+                connectionSwitch = 1;
+                break;
+            case 2:
+                connectionSwitch = 2;
+                break;
+
+        }
+        ChangeConnection();
+        connectionMenu.SetActive(false);
     }
 
     void MakeConnection()
     {
         vector1 = startConnection.position;
         vector2 = finishConnection.position;
-        connectionObj.transform.localScale = new Vector3(0.3f, 0.3f, Vector3.Distance(vector1, vector2)); //меняем размер объекта по z 
+        connectionArray[connectionSwitch].transform.localScale = new Vector3(0.3f, 0.3f, Vector3.Distance(vector1, vector2)); //меняем размер объекта по z 
         Vector3 middlePoint = new Vector3((vector1.x + vector2.x) / 2, (vector1.y + vector2.y) / 2, (vector1.z + vector2.z) / 2);// узнаем середину между 2мя объектами
-        Quaternion ObjQuaternion = connectionObj.transform.rotation;
-        ObjQuaternion = Quaternion.RotateTowards(Quaternion.LookRotation(vector1), Quaternion.LookRotation((vector1 - vector2) ),360f);// узнаем угол поворота между стартовой и конечной точкой - надо сделать его по модулю
-        GameObject bufferGm = Instantiate(connectionObj, middlePoint, ObjQuaternion);// инициализируем объект в переменной
+        Quaternion ObjQuaternion = connectionArray[connectionSwitch].transform.rotation;
+        ObjQuaternion = Quaternion.RotateTowards(Quaternion.LookRotation(vector1), Quaternion.LookRotation((vector1 - vector2)), 360f);// узнаем угол поворота между стартовой и конечной точкой - надо сделать его по модулю
+        GameObject bufferGm = Instantiate(connectionArray[connectionSwitch], middlePoint, ObjQuaternion);// инициализируем объект в переменной
         bufferGm.GetComponent<ConnectionUpdate>().ConnectionUp(startConnection, finishConnection); //по ссылке на переменную объекта добавляем значения конкретному объекту
         ClearConnection();
     }
@@ -110,13 +167,14 @@ public class Manipulator : MonoBehaviour
     {
         startConnection = null;
         finishConnection = null;
+        currentViewConnection = null;
     }
     void GetTarget()
     {
         if (Physics.Raycast(ray, out hit))
         {
             Debug.Log(hit.collider.gameObject.name);
-            if (!connectionModeIsOn)
+            if (!connectionModeIsOn && hit.collider.gameObject.tag != "Connection")
             {
                 manipulatorTarget = hit.collider.gameObject.GetComponent<Transform>();
             }
@@ -136,6 +194,27 @@ public class Manipulator : MonoBehaviour
             }
         }
     }
+
+    void GetConnection()
+    {
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.collider.gameObject.tag == "Connection")
+            {
+                currentViewConnection = hit.collider.gameObject;
+            }
+        }
+    }
+
+    void ChangeConnection()
+    {
+        startConnection = currentViewConnection.GetComponent<ConnectionUpdate>().firstObj;
+        finishConnection = currentViewConnection.GetComponent<ConnectionUpdate>().secontObj;
+        Destroy(hit.collider.gameObject);
+        MakeConnection();
+
+    }
+
 
     void DropTarget()
     {

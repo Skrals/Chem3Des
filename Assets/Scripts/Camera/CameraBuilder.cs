@@ -17,7 +17,7 @@ public class CameraBuilder : MonoBehaviour
 
     void Start()
     {
-
+        //TODO: проверка на отсутствие объекта 
         cam = this.gameObject.AddComponent<TransformCam>();
         limit = Mathf.Abs(limit);
         if (limit > 90) limit = 90;

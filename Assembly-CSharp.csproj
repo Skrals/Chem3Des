@@ -47,7 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>4.8.2.0</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>4.9.1.0</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>WebGL:20</UnityBuildTarget>
     <UnityVersion>2019.4.1f1</UnityVersion>
@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Logic\InitializerSwitch.cs" />
     <Compile Include="Assets\Scripts\Logic\Manipulator.cs" />
     <Compile Include="Assets\Scripts\SaveState.cs" />
+    <Compile Include="Assets\Scripts\UI\CurrentActions.cs" />
     <Compile Include="Assets\Scripts\UI\ElementInitializer.cs" />
     <Compile Include="Assets\Scripts\UI\GUIControl.cs" />
     <Compile Include="Assets\Scripts\UI\GUIControlInfo.cs" />

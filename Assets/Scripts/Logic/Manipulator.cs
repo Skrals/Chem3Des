@@ -1,15 +1,17 @@
-﻿using UnityEngine.UI;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Manipulator : MonoBehaviour
 {
     public bool connectionModeIsOn = false;
     public GameObject connectionMenu;
+    public GameObject currentConnectionModShow;
+    public GameObject currentConnectionTypeShow;
 
     [SerializeField] private Transform startConnection = null;
     [SerializeField] private Transform finishConnection = null;
     [SerializeField] private Transform manipulatorTarget;
 
+    [SerializeField] private GameObject line;
     [SerializeField] private GameObject currentViewConnection;
     [SerializeField] private GameObject[] connectionArray;
 
@@ -28,20 +30,23 @@ public class Manipulator : MonoBehaviour
 
     [SerializeField] Color selectColor;
     [SerializeField] Color deletColor;
+    [SerializeField] Color connectionColor;
 
     Ray ray;
     RaycastHit hit;
+
 
     void Update()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         cursor = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            startVector = cursor;
+        }
         if (!connectionModeIsOn)
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                startVector = cursor;
-            }
+
 
             if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.Mouse0))
             {
@@ -62,7 +67,6 @@ public class Manipulator : MonoBehaviour
             {
                 DeleteTarget();
             }
-
             if (Input.GetKey(KeyCode.Tab))
             {
                 HiglightTarget(selectColor);
@@ -87,10 +91,11 @@ public class Manipulator : MonoBehaviour
             {
                 connectionModeIsOn = true;
             }
+            currentConnectionModShow.GetComponent<CurrentActions>().IsConnectionMode(connectionModeIsOn);
         }
         if (connectionModeIsOn)
         {
-
+            HiglightTarget(connectionColor);
             if (Input.GetKeyDown(KeyCode.Mouse0) && startConnection == null)
             {
                 GetTarget();
@@ -99,13 +104,19 @@ public class Manipulator : MonoBehaviour
             {
                 GetTarget();
             }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                connectionMenu.SetActive(true);
+                connectionMenu.transform.position = Input.mousePosition;
+            }
+            Pointer();
         }
 
         if (startConnection != null && finishConnection != null)
         {
             MakeConnection();
-        }
 
+        }
         if (Input.GetKey(KeyCode.T) && Input.GetKeyDown(KeyCode.Mouse0))
         {
 
@@ -129,6 +140,7 @@ public class Manipulator : MonoBehaviour
             connectionMenu.SetActive(false);
             ClearConnection();
         }
+        currentConnectionTypeShow.GetComponent<CurrentActions>().CurrentConnection(connectionSwitch);
     }
 
     public void InputMenu(int value)
@@ -147,6 +159,7 @@ public class Manipulator : MonoBehaviour
                 break;
 
         }
+
         ChangeConnection();
         connectionMenu.SetActive(false);
     }
@@ -195,8 +208,6 @@ public class Manipulator : MonoBehaviour
         }
     }
     //TODO: универсализировать метод получения объекта через raycast hit
-    //TODO: сделать метод отображающий луч при проведении связи между атомами
-    //TODO: сделать интерфейс отображающий текущие действия и выбранный элемент
     //TODO: сделать веса для связей и элементов - логику соединений
     void GetConnection()
     {
@@ -211,13 +222,19 @@ public class Manipulator : MonoBehaviour
 
     void ChangeConnection()
     {
-        startConnection = currentViewConnection.GetComponent<ConnectionUpdate>().firstObj;
-        finishConnection = currentViewConnection.GetComponent<ConnectionUpdate>().secontObj;
-        Destroy(hit.collider.gameObject);
-        MakeConnection();
+        try
+        {
+            startConnection = currentViewConnection.GetComponent<ConnectionUpdate>().firstObj;
+            finishConnection = currentViewConnection.GetComponent<ConnectionUpdate>().secontObj;
+            Destroy(hit.collider.gameObject);
+            MakeConnection();
+        }
+        catch
+        {
+
+        }
 
     }
-
 
     void DropTarget()
     {
@@ -314,6 +331,26 @@ public class Manipulator : MonoBehaviour
                 manipulatorTarget.Z(objectZ - (startVector.z - cursor.z) + offsetPosition);
             }
             startVector = cursor;
+        }
+    }
+
+    void Pointer()
+    {
+        try
+        {
+            Ray r = Camera.main.ScreenPointToRay(Input.mousePosition); ;
+            RaycastHit h;
+            if (Physics.Raycast(r, out h) && h.collider.gameObject.tag != "Connection")
+            {
+                Vector3 pos = startConnection.position;
+                line.GetComponent<LineRenderer>().SetPosition(0, pos);
+                line.GetComponent<LineRenderer>().SetPosition(1, h.point);
+            }
+        }
+        catch
+        {
+            line.GetComponent<LineRenderer>().SetPosition(0, new Vector3(0,0,0));
+            line.GetComponent<LineRenderer>().SetPosition(1, new Vector3(0, 0, 0));
         }
     }
 

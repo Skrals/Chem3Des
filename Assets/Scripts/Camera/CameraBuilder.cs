@@ -17,7 +17,6 @@ public class CameraBuilder : MonoBehaviour
 
     void Start()
     {
-        //TODO: проверка на отсутствие объекта 
         cam = this.gameObject.AddComponent<TransformCam>();
         limit = Mathf.Abs(limit);
         if (limit > 90) limit = 90;
@@ -52,6 +51,15 @@ public class CameraBuilder : MonoBehaviour
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+        }
+        if(target == null)
+        {
+            try { target = GameObject.FindGameObjectWithTag("Element").transform; }
+            catch 
+            {
+                target = GameObject.Find("Center").transform;
+            }
+            
         }
     }
     void MouseInputR()

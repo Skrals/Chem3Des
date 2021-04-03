@@ -86,6 +86,8 @@ public class Manipulator : MonoBehaviour
             if (connectionModeIsOn)
             {
                 connectionModeIsOn = false;
+                line.GetComponent<LineRenderer>().SetPosition(0, new Vector3(0, 0, 0));
+                line.GetComponent<LineRenderer>().SetPosition(1, new Vector3(0, 0, 0));
             }
             else
             {

@@ -119,6 +119,10 @@ public class Manipulator : MonoBehaviour
             MakeConnection();
 
         }
+        if (Input.GetKey(KeyCode.T))
+        {
+            HiglightTarget(connectionColor);
+        }
         if (Input.GetKey(KeyCode.T) && Input.GetKeyDown(KeyCode.Mouse0))
         {
 
@@ -277,15 +281,24 @@ public class Manipulator : MonoBehaviour
             Light light = hit.collider.gameObject.GetComponent<Light>();
             if (light)
             {
-                if (targetLight && targetLight != light)
+                if (hit.collider.gameObject.tag == "Connection" && Input.GetKey(KeyCode.Tab)
+                    || hit.collider.gameObject.tag == "Element" && Input.GetKey(KeyCode.T)
+                    || hit.collider.gameObject.tag == "Connection" && connectionModeIsOn)
                 {
                     Deselected();
                 }
-                targetLight = light;
-                targetLight.color = color;
-                if (available)
+                else
                 {
-                    Selected();
+                    if (targetLight && targetLight != light)
+                    {
+                        Deselected();
+                    }
+                    targetLight = light;
+                    targetLight.color = color;
+                    if (available)
+                    {
+                        Selected();
+                    }
                 }
             }
             else
@@ -351,7 +364,7 @@ public class Manipulator : MonoBehaviour
         }
         catch
         {
-            line.GetComponent<LineRenderer>().SetPosition(0, new Vector3(0,0,0));
+            line.GetComponent<LineRenderer>().SetPosition(0, new Vector3(0, 0, 0));
             line.GetComponent<LineRenderer>().SetPosition(1, new Vector3(0, 0, 0));
         }
     }

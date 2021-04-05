@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class SaveState : MonoBehaviour
+﻿static public class SaveState
 {
-    // Start is called before the first frame update
-    void Start()
+    public static float cameraZoomMax;
+    public static float cameraSpeed;
+    public static float cameraSense;
+    public static void GetCameraSettings (float zoom, float speed, float sense)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        cameraZoomMax = zoom;
+        cameraSpeed = speed;
+        cameraSense = sense;
     }
 }

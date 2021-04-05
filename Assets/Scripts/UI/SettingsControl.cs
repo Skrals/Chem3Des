@@ -22,14 +22,22 @@ public class SettingsControl : MonoBehaviour
     private float tmpSense;
     private void Start()// получаем минимальные значения
     {
-        tmpMax = cameraSettings.GetComponent<CameraBuilder>().zoomMax;
-        tmpSpeed = cameraSettings.GetComponent<CameraBuilder>().zoom;
-        tmpSense = cameraSettings.GetComponent<CameraBuilder>().MouseSense;
+        if (SaveState.cameraZoomMax != 0 && SaveState.cameraSpeed != 0 && SaveState.cameraSense != 0)
+        {
+            tmpMax = SaveState.cameraZoomMax;
+            tmpSense = SaveState.cameraSense;
+            tmpSpeed = SaveState.cameraSpeed;
 
+        }
+        else
+        {
+            tmpMax = cameraSettings.GetComponent<CameraBuilder>().zoomMax;
+            tmpSpeed = cameraSettings.GetComponent<CameraBuilder>().zoom;
+            tmpSense = cameraSettings.GetComponent<CameraBuilder>().MouseSense;
+        }
         sliderMax.minValue = tmpMax;
         sliderSense.minValue = tmpSense;
         sliderSpeed.minValue = tmpSpeed;
-
     }
 
     void Update()
@@ -38,6 +46,10 @@ public class SettingsControl : MonoBehaviour
         Settings();
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveState.GetCameraSettings(zoomMaxSet,speedSet,senseSet);
+    }
 
     private void Settings()// настройки через слайдеры
     {

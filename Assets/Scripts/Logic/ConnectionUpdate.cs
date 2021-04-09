@@ -35,7 +35,7 @@ public  class ConnectionUpdate : MonoBehaviour
 
     private void DeleteConnection()
     {
-         Destroy(this.gameObject);
+         Destroy(gameObject);
     }
     private void WhichConnectionIs (string gameObject)
     {

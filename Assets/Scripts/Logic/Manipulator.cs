@@ -25,7 +25,7 @@ public class Manipulator : MonoBehaviour
     [SerializeField] private float offsetPosition = 0.01f;
     [SerializeField] private bool available;
     [SerializeField] private bool view;
-    [SerializeField] private int connectionSwitch = 0;
+    [SerializeField] private int connectionSwitch;
     [SerializeField] private int listCounter = 0;
 
     [SerializeField] Color selectColor;

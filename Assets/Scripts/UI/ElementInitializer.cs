@@ -12,5 +12,4 @@ public class ElementInitializer : MonoBehaviour, IPointerClickHandler
         init.Initializer(element);
         Debug.Log(name);
     }
-
 }

@@ -12,12 +12,12 @@ public class CameraBuilder : MonoBehaviour
     public float zoom = 0.25f; // чувствительность при увеличении, колесиком мышки
     public float zoomMax = 10; // макс. увеличение
     public float zoomMin = 3; // мин. увеличение
-    public float MouseSense = 3; // чувствительность мышки
+    public float mouseSense = 3; // чувствительность мышки
     private float X, Y;
 
     void Start()
     {
-        cam = this.gameObject.AddComponent<TransformCam>();
+        cam = gameObject.AddComponent<TransformCam>();
         limit = Mathf.Abs(limit);
         if (limit > 90) limit = 90;
         offset = new Vector3(offset.x, offset.y, -Mathf.Abs(zoomMax) / 2);
@@ -26,10 +26,7 @@ public class CameraBuilder : MonoBehaviour
 
     void Update()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        Debug.DrawRay(transform.position, transform.forward, Color.red);
         SwitchCameraViewTarget();
-
         if (Input.GetKey(KeyCode.Mouse1) && !Input.GetKey(KeyCode.Mouse0))
         {
             MouseInputR();
@@ -59,13 +56,13 @@ public class CameraBuilder : MonoBehaviour
             {
                 target = GameObject.Find("Center").transform;
             }
-            
         }
+
     }
     void MouseInputR()
     {
-        X = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * MouseSense;
-        Y += Input.GetAxis("Mouse Y") * MouseSense;
+        X = transform.localEulerAngles.y + Input.GetAxis("Mouse X") * mouseSense;
+        Y += Input.GetAxis("Mouse Y") * mouseSense;
         Y = Mathf.Clamp(Y, -limit, limit);
         transform.localEulerAngles = new Vector3(-Y, X, 0);
         Cursor.visible = false;
@@ -76,6 +73,8 @@ public class CameraBuilder : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.Mouse0))
         {
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(transform.position, transform.forward, Color.red);
             if (Physics.Raycast(ray, out hit))
             {
                 Debug.Log(hit.collider.gameObject.name);

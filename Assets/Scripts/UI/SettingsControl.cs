@@ -6,63 +6,56 @@ using System;
 
 public class SettingsControl : MonoBehaviour
 {
+    [Header("Settings object")]
     public GameObject cameraSettings;// настраиваемый объект
+    [Header("Output vals from sliders")]
     public GameObject MaxZoomVal;// объекты вывода 
     public GameObject SpeedVal;
     public GameObject SenseVal;
+    [Header ("Input sliders")]
     public Slider sliderMax;// слайдеры ввода
     public Slider sliderSpeed;
     public Slider sliderSense;
-
+    [Header("")]
     [SerializeField] private float zoomMaxSet;// вывод значений в интерфейс
     [SerializeField] private float speedSet;
     [SerializeField] private float senseSet;
-    private float tmpMax;// буфер минимальных значений
+    private float tmpMax;// буфер 
     private float tmpSpeed;
     private float tmpSense;
     private void Start()// получаем минимальные значения
     {
-        if (SaveState.cameraZoomMax != 0 && SaveState.cameraSpeed != 0 && SaveState.cameraSense != 0)
-        {
-            tmpMax = SaveState.cameraZoomMax;
-            tmpSense = SaveState.cameraSense;
-            tmpSpeed = SaveState.cameraSpeed;
+        var camS = cameraSettings.GetComponent<CameraBuilder>();
+        tmpMax = camS.zoomMax;
+        tmpSpeed = camS.zoom;
+        tmpSense = camS.mouseSense;
 
-        }
-        else
-        {
-            tmpMax = cameraSettings.GetComponent<CameraBuilder>().zoomMax;
-            tmpSpeed = cameraSettings.GetComponent<CameraBuilder>().zoom;
-            tmpSense = cameraSettings.GetComponent<CameraBuilder>().MouseSense;
-        }
         sliderMax.minValue = tmpMax;
         sliderSense.minValue = tmpSense;
         sliderSpeed.minValue = tmpSpeed;
     }
-
     void Update()
     {
         UpdateUIVals();
         Settings();
     }
-
     private void OnApplicationQuit()
     {
-        SaveState.GetCameraSettings(zoomMaxSet,speedSet,senseSet);
+        
     }
-
     private void Settings()// настройки через слайдеры
     {
-        cameraSettings.GetComponent<CameraBuilder>().zoomMax = sliderMax.value;
-        cameraSettings.GetComponent<CameraBuilder>().zoom = sliderSpeed.value;
-        cameraSettings.GetComponent<CameraBuilder>().MouseSense = sliderSense.value;
+        var camS = cameraSettings.GetComponent<CameraBuilder>();
+        camS.zoomMax = sliderMax.value;
+        camS.zoom = sliderSpeed.value;
+        camS.mouseSense = sliderSense.value;
     }
-
     private void UpdateUIVals()// обновление значений в интерфейсе
     {
-        zoomMaxSet = cameraSettings.GetComponent<CameraBuilder>().zoomMax;
-        speedSet = cameraSettings.GetComponent<CameraBuilder>().zoom;
-        senseSet = cameraSettings.GetComponent<CameraBuilder>().MouseSense;
+        var camS = cameraSettings.GetComponent<CameraBuilder>();
+        zoomMaxSet = camS.zoomMax;
+        speedSet = camS.zoom;
+        senseSet = camS.mouseSense;
 
         MaxZoomVal.GetComponent<Text>().text = Convert.ToString(zoomMaxSet);
         SpeedVal.GetComponent<Text>().text = Convert.ToString(speedSet);

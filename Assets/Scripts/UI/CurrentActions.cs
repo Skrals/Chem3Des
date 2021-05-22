@@ -10,30 +10,28 @@ public class CurrentActions : MonoBehaviour
     public Text connectionType;
     public Text isConnectionMode;
     private string none = $"-----";
-
     [Header("Action panel sprites")]
-    public Sprite [] sprites;
+    public Sprite[] sprites;
     public GameObject actionPanel;
- 
-    [Header ("HTML color tags")]
+    [Header("HTML color tags")]
     string color = "";
     string colorTagStart;
     string colorTagEnd = "</color>";
-
     private void Start()
     {
-        action.text = actionType.text = currentElement.text = connectionType.text = isConnectionMode.text = "";
+        action.text = actionType.text = currentElement.text =
+        connectionType.text = isConnectionMode.text = "";
         CurrentElement(null);
     }
     void Update()
     {
         var allKeys = System.Enum.GetValues(typeof(KeyCode)).Cast<KeyCode>();
-        foreach (var key in allKeys)
+        foreach (var key in allKeys)//поиск нажатой клавиши
         {
             if (Input.GetKey(key))
             {
                 action.text = $"Нажата клавиша: <color=lime>{key}</color>";
-                ThisKeyCombinationAction (key.ToString());
+                ThisKeyCombinationAction(key.ToString());
             }
         }
         if (!Input.anyKey)
@@ -56,7 +54,8 @@ public class CurrentActions : MonoBehaviour
                     actionType.text = $"{s}{colorTagStart}Удаление{colorTagEnd}";
                     break;
                 case "LeftShift":
-                    actionType.text = $"{s}{colorTagStart}Расположить выбранный элемент{colorTagEnd}";
+                    actionType.text = $"{s}" +
+          $"{colorTagStart}Расположить выбранный элемент{colorTagEnd}";
                     break;
                 case "Tab":
                     actionType.text = $"{s}{colorTagStart}Перемещение элемента{colorTagEnd}";
@@ -67,28 +66,24 @@ public class CurrentActions : MonoBehaviour
             }
             actionPanel.GetComponent<Image>().sprite = sprites[0];
         }
-        else
-        {
-            actionPanel.GetComponent<Image>().sprite = sprites[1];
-        }
+        else { actionPanel.GetComponent<Image>().sprite = sprites[1]; }
         switch (key)
         {
             case "Escape":
                 actionType.text = $"{s}{colorTagStart}Сброс{colorTagEnd}";
                 break;
             case "LeftControl":
-                actionType.text = $"{s}{colorTagStart}Переместить камеру{colorTagEnd}";
+                actionType.text = $"{s}" +
+    $"{colorTagStart}Переместить камеру{colorTagEnd}";
                 break;
             case "-----":
                 actionType.text = $"{s}{none}";
                 break;
-                
         }
     }
 
     public void CurrentElement(string element)
     {
-        
         switch (element)
         {
             case "H":
@@ -115,17 +110,10 @@ public class CurrentActions : MonoBehaviour
             case "BR":
                 color = "brown";
                 break;
-
         }
         colorTagStart = "<color=" + color + ">";
-        if (element != null)
-        {
-            currentElement.text = $"Выбранный элемент:{colorTagStart} {element} {colorTagEnd}";
-        }
-        else
-        {
-            currentElement.text = $"Выбранный элемент: {none}";
-        }
+        if (element != null) { currentElement.text = $"Выбранный элемент:{colorTagStart} {element} {colorTagEnd}"; }
+        else { currentElement.text = $"Выбранный элемент: {none}"; }
     }
     public void CurrentConnection(int value)
     {
@@ -143,21 +131,13 @@ public class CurrentActions : MonoBehaviour
             case 2:
                 connectionType.text = $"{s}{colorTagStart}тройная{colorTagEnd}";
                 break;
-
         }
     }
 
     public void IsConnectionMode(bool mode)
     {
-        if (mode)
-        {
-            isConnectionMode.text = $"Режим построения связей";
-        }
-        else
-        {
-            isConnectionMode.text = $"";
-        }
+        if (mode) { isConnectionMode.text = $"Режим построения связей"; }
+        else { isConnectionMode.text = $""; }
     }
-
 }
 

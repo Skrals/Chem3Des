@@ -27,34 +27,24 @@ public class SpriteSwitch : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-         switchOn(switchOnSprite);
-       
+        switchOn(switchOnSprite);
     }
-    
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (name != "Settings")
-        {
-            switchOn(defoltSprite);
-        }
-        else
-        {
-            switchOn(usedSprite);
-        }
+        if (name != "Settings") { switchOn(defoltSprite); }
+        else { switchOn(usedSprite); }
     }
-
-    void switchOn( Sprite sp)
+    void switchOn(Sprite sp)
     {
-          this.GetComponent<Image>().sprite = sp;
+        this.GetComponent<Image>().sprite = sp;
     }
-
-    public void switchDefoltSprites ()
+    public void switchDefoltSprites()
     {
         if (!switchState)
         {
             switchState = true;
             defoltSprite = switchDefolt;
-            switchOnSprite = switchOnEneteredSprite; 
+            switchOnSprite = switchOnEneteredSprite;
         }
         else
         {
@@ -62,22 +52,14 @@ public class SpriteSwitch : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             defoltSprite = defoltTmp;
             switchOnSprite = enteredTmp;
         }
-
     }
-
     public void OnPointerClick(PointerEventData eventData)
     {
         if (this.gameObject.name == "Settings")
         {
-            if (name == null)
-            {
-                name = this.gameObject.name;
-            }
-            else
-            {
-                name = null;
-            }
-           switchOn(usedSprite);
+            if (name == null) { name = this.gameObject.name; }
+            else { name = null; }
+            switchOn(usedSprite);
         }
     }
 }

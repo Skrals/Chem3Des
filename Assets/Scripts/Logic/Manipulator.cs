@@ -40,21 +40,13 @@ public class Manipulator : MonoBehaviour
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         cursor = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            startVector = cursor;
-        }
+        if (Input.GetKeyDown(KeyCode.Mouse0)){startVector = cursor;}
         if (!connectionModeIsOn)
         {
-
-
             if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.Mouse0))
-            {
-                GetTarget();
-            }
-
+            { GetTarget();}
             if (Input.GetKey(KeyCode.Tab) && Input.GetKey(KeyCode.Mouse0) && !Input.GetKey(KeyCode.D))
-            {
+            {   
                 CalculateCurrentPosition();
                 Deselected();
             }
@@ -149,6 +141,28 @@ public class Manipulator : MonoBehaviour
         currentConnectionTypeShow.GetComponent<CurrentActions>().CurrentConnection(connectionSwitch);
     }
 
+    #region make connection
+    void MakeConnection()
+    {
+        vector1 = startConnection.position;
+        vector2 = finishConnection.position;
+        connectionArray[connectionSwitch].transform.localScale = new Vector3(0.3f, 0.3f, Vector3.Distance(vector1, vector2)); //меняем размер объекта по z 
+        Vector3 middlePoint = new Vector3((vector1.x + vector2.x) / 2, (vector1.y + vector2.y) / 2, (vector1.z + vector2.z) / 2);// узнаем середину между 2мя объектами
+        Quaternion ObjQuaternion = connectionArray[connectionSwitch].transform.rotation;
+        ObjQuaternion = Quaternion.RotateTowards(Quaternion.LookRotation(vector1), Quaternion.LookRotation((vector1 - vector2)), 360f);// узнаем угол поворота между стартовой и конечной точкой - надо сделать его по модулю
+        GameObject bufferGm = Instantiate(connectionArray[connectionSwitch], middlePoint, ObjQuaternion);// инициализируем объект в переменной
+        bufferGm.GetComponent<ConnectionUpdate>().ConnectionUp(startConnection, finishConnection); //по ссылке на переменную объекта добавляем значения конкретному объекту
+        ClearConnection();
+    }
+    void ClearConnection()
+    {
+        startConnection = null;
+        finishConnection = null;
+        currentViewConnection = null;
+    }
+    #endregion
+
+    #region change connection
     public void InputMenu(int value)
     {
 
@@ -169,25 +183,21 @@ public class Manipulator : MonoBehaviour
         ChangeConnection();
         connectionMenu.SetActive(false);
     }
+    void ChangeConnection()
+    {
+        try
+        {
+            startConnection = currentViewConnection.GetComponent<ConnectionUpdate>().firstObj;
+            finishConnection = currentViewConnection.GetComponent<ConnectionUpdate>().secontObj;
+            Destroy(hit.collider.gameObject);
+            MakeConnection();
+        }
+        catch
+        { }
+    }
+    #endregion
 
-    void MakeConnection()
-    {
-        vector1 = startConnection.position;
-        vector2 = finishConnection.position;
-        connectionArray[connectionSwitch].transform.localScale = new Vector3(0.3f, 0.3f, Vector3.Distance(vector1, vector2)); //меняем размер объекта по z 
-        Vector3 middlePoint = new Vector3((vector1.x + vector2.x) / 2, (vector1.y + vector2.y) / 2, (vector1.z + vector2.z) / 2);// узнаем середину между 2мя объектами
-        Quaternion ObjQuaternion = connectionArray[connectionSwitch].transform.rotation;
-        ObjQuaternion = Quaternion.RotateTowards(Quaternion.LookRotation(vector1), Quaternion.LookRotation((vector1 - vector2)), 360f);// узнаем угол поворота между стартовой и конечной точкой - надо сделать его по модулю
-        GameObject bufferGm = Instantiate(connectionArray[connectionSwitch], middlePoint, ObjQuaternion);// инициализируем объект в переменной
-        bufferGm.GetComponent<ConnectionUpdate>().ConnectionUp(startConnection, finishConnection); //по ссылке на переменную объекта добавляем значения конкретному объекту
-        ClearConnection();
-    }
-    void ClearConnection()
-    {
-        startConnection = null;
-        finishConnection = null;
-        currentViewConnection = null;
-    }
+    #region target
     void GetTarget()
     {
         if (Physics.Raycast(ray, out hit))
@@ -225,28 +235,6 @@ public class Manipulator : MonoBehaviour
             }
         }
     }
-
-    void ChangeConnection()
-    {
-        try
-        {
-            startConnection = currentViewConnection.GetComponent<ConnectionUpdate>().firstObj;
-            finishConnection = currentViewConnection.GetComponent<ConnectionUpdate>().secontObj;
-            Destroy(hit.collider.gameObject);
-            MakeConnection();
-        }
-        catch
-        {
-
-        }
-
-    }
-
-    void DropTarget()
-    {
-        manipulatorTarget = null;
-    }
-
     void DeleteTarget()
     {
         if (Physics.Raycast(ray, out hit))
@@ -257,6 +245,51 @@ public class Manipulator : MonoBehaviour
             targetLight = null;
         }
     }
+    void DropTarget()
+    {
+        manipulatorTarget = null;
+    }
+    #endregion
+
+    #region calculations
+    void CalculateCurrentPosition()
+    {
+        if (manipulatorTarget)
+        {
+            var objectX = manipulatorTarget.position.x;
+            var objectY = manipulatorTarget.position.y;
+            var objectZ = manipulatorTarget.position.z;
+            var bounds = manipulatorTarget.GetComponent<MeshFilter>().sharedMesh.bounds.size;
+            if (startVector.x > cursor.x)
+            {
+                manipulatorTarget.X(objectX + (cursor.x - startVector.x) - offsetPosition);
+            }
+            if (startVector.x < cursor.x)
+            {
+                manipulatorTarget.X(objectX - (startVector.x - cursor.x) + offsetPosition);
+            }
+            if (startVector.y > cursor.y)
+            {
+                manipulatorTarget.Y(objectY + (cursor.y - startVector.y) - offsetPosition);
+            }
+            if (startVector.y < cursor.y)
+            {
+                manipulatorTarget.Y(objectY - (startVector.y - cursor.y) + offsetPosition);
+            }
+            if (startVector.z > cursor.z)
+            {
+                manipulatorTarget.Z(objectZ + (cursor.z - startVector.z) - offsetPosition);
+            }
+            if (startVector.z < cursor.z)
+            {
+                manipulatorTarget.Z(objectZ - (startVector.z - cursor.z) + offsetPosition);
+            }
+            startVector = cursor;
+        }
+    }
+    #endregion
+
+    #region target highlight
     void Selected()
     {
         targetLight.enabled = true;
@@ -311,44 +344,6 @@ public class Manipulator : MonoBehaviour
             Deselected();
         }
     }
-
-    void CalculateCurrentPosition()
-    {
-        if (manipulatorTarget)
-        {
-            var objectX = manipulatorTarget.position.x;
-            var objectY = manipulatorTarget.position.y;
-            var objectZ = manipulatorTarget.position.z;
-            var bounds = manipulatorTarget.GetComponent<MeshFilter>().sharedMesh.bounds.size;
-
-            if (startVector.x > cursor.x)
-            {
-                manipulatorTarget.X(objectX + (cursor.x - startVector.x) - offsetPosition);
-            }
-            if (startVector.x < cursor.x)
-            {
-                manipulatorTarget.X(objectX - (startVector.x - cursor.x) + offsetPosition);
-            }
-            if (startVector.y > cursor.y)
-            {
-                manipulatorTarget.Y(objectY + (cursor.y - startVector.y) - offsetPosition);
-            }
-            if (startVector.y < cursor.y)
-            {
-                manipulatorTarget.Y(objectY - (startVector.y - cursor.y) + offsetPosition);
-            }
-            if (startVector.z > cursor.z)
-            {
-                manipulatorTarget.Z(objectZ + (cursor.z - startVector.z) - offsetPosition);
-            }
-            if (startVector.z < cursor.z)
-            {
-                manipulatorTarget.Z(objectZ - (startVector.z - cursor.z) + offsetPosition);
-            }
-            startVector = cursor;
-        }
-    }
-
     void Pointer()
     {
         try
@@ -368,5 +363,6 @@ public class Manipulator : MonoBehaviour
             line.GetComponent<LineRenderer>().SetPosition(1, new Vector3(0, 0, 0));
         }
     }
-
+    #endregion
+   
 }

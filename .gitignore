@@ -3,7 +3,8 @@
 ###
 [Aa]ssets/AssetStoreTools*
 [Bb]uild/
-[Ll]ibrary\
+[Ll]ibrary/
+[Ll]ibrary/[Aa]rtifact/
 [Ll]ocal[Cc]ache/
 [Oo]bj/
 [Tt]emp/
